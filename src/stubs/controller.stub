@@ -1,0 +1,137 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+use DummyRootNamespace{{modelName}};
+use Illuminate\Http\Request;
+use Session;
+
+class DummyClass extends Controller
+{
+    /**
+    * @var {{modelName}}Service
+    */
+    private ${{modelName}}Service;
+
+    /**
+    * {{crudName}} Controller constructor.
+    */
+    public function __construct({{modelName}}Service ${{modelName}}Service)
+    {
+        $this->{{nameModel}}Service = ${{modelName}}Service;
+    }
+
+    /**
+     * @return {{modelName}}Service
+     */
+    public function get{{modelName}}Service()
+    {
+        return $this->{{modelName}}Service;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        ${{crudName}} = $this->get{{modelName}}service->all({{pagination}});
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('{{viewPath}}{{viewName}}.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        $this->get{{modelName}}service->create($requestData);
+
+        Session::flash('flash_message', '{{modelName}} adicionado!');
+
+        return redirect('{{routeGroup}}{{viewName}}');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        ${{crudNameSingular}} = $this->get{{modelName}}service->find($id);
+        return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        ${{crudNameSingular}} =  $this->get{{modelName}}service->find($id););
+
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        ${{crudNameSingular}} =  $this->get{{modelName}}service->update($requestData);
+
+        Session::flash('flash_message', '{{modelName}} atualizado!');
+
+        return redirect('{{routeGroup}}{{viewName}}');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        $this->get{{modelName}}service->destroy($id);
+
+        Session::flash('flash_message', '{{modelName}} apagado!');
+
+        return redirect('{{routeGroup}}{{viewName}}');
+    }
+}

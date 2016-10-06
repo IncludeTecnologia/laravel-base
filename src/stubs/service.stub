@@ -1,0 +1,52 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Repositories\{{modelName}}Repository;
+
+class Service{{modelName}}
+{
+    private ${{crudName}}Repository;
+
+    public function __construct({{crudName}}Repository ${{crudNameSingular}}Repository)
+    {
+        $this->{{crudNameSingular}}Repository = ${{crudNameSingular}}Repository;
+    }
+
+    public function get{{crudName}}Repository()
+    {
+        return $this->{{crudNameSingular}}Repository;
+    }
+
+    public function all()
+    {
+        return $this->get{{crudName}}Repository()->paginate(10);
+    }
+
+    public function show($id)
+    {
+        return $this->get{{crudName}}Repository()->find($id);
+    }
+
+    public function findById($id)
+    {
+        return $this->get{{crudName}}Repository()->find($id);
+    }
+
+    public function create($data)
+    {
+        return $this->get{{crudName}}Repository()->create($data);
+    }
+    public function update($data, $id)
+    {
+        return $this->get{{crudName}}Repository()->update($data, $id);
+    }
+    public function delete($id)
+    {
+        return $this->get{{crudName}}Repository()->delete($id);
+    }
+    public function {{crudNameSingular}}Lists()
+    {
+        return $this->get{{crudName}}Repository()->all()->pluck('name','id');
+    }
+}
