@@ -5,7 +5,7 @@
  * Date: 06/10/2016
  * Time: 12:28
  */
-namespace includetecnologia\laravel-base;
+namespace IncludeTecnologia\Generator;
 
 use Illuminate\Support\ServiceProvider;
 
